@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <WebView
+    <com.darekbx.priceobserver.ui.ObservableWebView
         android:id="@+id/web_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
