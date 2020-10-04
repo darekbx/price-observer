@@ -1,7 +1,6 @@
 package com.darekbx.priceobserver
 
 import android.os.Bundle
-import android.util.Log
 import android.webkit.WebSettings
 import androidx.appcompat.app.AppCompatActivity
 import com.darekbx.priceobserver.ui.TagSelectDialog
@@ -14,7 +13,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         web_view.loadUrl("https://bikecenter.pl/p5580,chris-king-inset-press-fit-1-1-8-stery-czarne-stery.html")
-        web_view.htmlCallback = { displayHtmlpart(it) }
+        web_view.htmlPartCallback = { element ->
+            element?.let {
+                displayHtmlpart(it)
+            }
+        }
+        web_view.pageSourceCallback = { processPageSource(it) }
         web_view.initializeObserver()
 
         val settings: WebSettings = web_view.getSettings()
@@ -32,7 +36,12 @@ class MainActivity : AppCompatActivity() {
         }.show(supportFragmentManager, TagSelectDialog::class.simpleName)
     }
 
-        fun savePriceObserver(name: String, partToObserve: String) {
-            Log.v("---------", "name: $name. partToObserve: $partToObserve")
+    fun savePriceObserver(name: String, partToObserve: String) {
+
+
+    }
+
+    fun processPageSource(source: String?) {
+
     }
 }

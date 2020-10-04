@@ -4,10 +4,16 @@ import android.webkit.JavascriptInterface
 
 class JsInterface {
 
-    var htmlPartCallback: ((String) -> Unit)? = null
+    var onElementClick: ((String?) -> Unit)? = null
+    var onPageSource: ((String?) -> Unit)? = null
 
     @JavascriptInterface
     fun elementParentId(idOrClass: String) {
-        htmlPartCallback?.invoke(idOrClass)
+        onElementClick?.invoke(idOrClass)
+    }
+
+    @JavascriptInterface
+    fun pageSource(html: String?) {
+        onPageSource?.invoke(html)
     }
 }
