@@ -1,4 +1,4 @@
-package com.darekbx.priceobserver.ui
+package com.darekbx.priceobserver.ui.item
 
 import android.app.Dialog
 import android.graphics.Color

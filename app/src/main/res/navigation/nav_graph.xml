@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/itemsListFragment">
+    <fragment
+        android:id="@+id/itemFragment"
+        android:name="com.darekbx.priceobserver.ui.item.ItemFragment"
+        android:label="ItemFragment" />
+    <fragment
+        android:id="@+id/itemsListFragment"
+        android:name="com.darekbx.priceobserver.ui.itemslist.ItemsListFragment"
+        android:label="ItemsListFragment" >
+        <action
+            android:id="@+id/action_itemsListFragment_to_itemFragment"
+            app:destination="@id/itemFragment" />
+    </fragment>
+</navigation>

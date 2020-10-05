@@ -1,4 +1,4 @@
-package com.darekbx.priceobserver.ui
+package com.darekbx.priceobserver.ui.item
 
 import android.content.Context
 import android.util.AttributeSet

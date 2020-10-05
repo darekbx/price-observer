@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">Price Observer</string>
     <string name="select_tag">Select tag</string>
+    <string name="select_url">Select url</string>
     <string name="select_tag_hint">Replace price with "%" symbol</string>
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
     <string name="observer_name">Observer name</string>
+    <string name="url_hint">Full URL</string>
 </resources>
