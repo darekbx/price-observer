@@ -11,6 +11,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.darekbx.priceobserver.R
 import kotlinx.android.synthetic.main.dialog_tag_select.*
+import kotlinx.android.synthetic.main.dialog_tag_select.cancel_button
+import kotlinx.android.synthetic.main.dialog_tag_select.save_button
 
 class TagSelectDialog : DialogFragment() {
 
@@ -43,19 +45,28 @@ class TagSelectDialog : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         arguments?.getString(HTML_PART)?.let { text ->
-            text_field.setText(text)
+            html_field.setText(text)
         }
 
-        save_button.setOnClickListener {
-            onCompleted?.invoke(
-                name_field.text.toString(),
-                text_field.text.toString()
-            )
-            dismiss()
+        save_button.setOnClickListener { saveNewItem() }
+        cancel_button.setOnClickListener { dismiss() }
+    }
+
+    private fun saveNewItem() {
+        val name = name_field.text.toString()
+        val html = html_field.text.toString()
+
+        if (name.isBlank()) {
+            name_field.setError(getString(R.string.validation_error))
+            return
         }
 
-        cancel_button.setOnClickListener {
-            dismiss()
+        if (html.isBlank()) {
+            html_field.setError(getString(R.string.validation_error))
+            return
         }
+
+        onCompleted?.invoke(name, html)
+        dismiss()
     }
 }

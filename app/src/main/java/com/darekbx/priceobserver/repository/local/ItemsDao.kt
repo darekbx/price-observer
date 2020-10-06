@@ -18,5 +18,5 @@ interface ItemsDao {
     fun deleteItem(id: Int)
 
     @Insert
-    fun addItem(itemDto: ItemDto)
+    fun addItem(itemDto: ItemDto): Long
 }

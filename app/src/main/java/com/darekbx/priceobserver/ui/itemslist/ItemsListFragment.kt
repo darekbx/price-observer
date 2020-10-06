@@ -3,14 +3,19 @@ package com.darekbx.priceobserver.ui.itemslist
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.darekbx.priceobserver.R
 import com.darekbx.priceobserver.ui.item.ItemFragment
+import com.darekbx.priceobserver.ui.viewmodels.ItemViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_items_list.*
 
 @AndroidEntryPoint
 class ItemsListFragment : Fragment(R.layout.fragment_items_list) {
+
+    private val itemViewModel: ItemViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -20,6 +25,22 @@ class ItemsListFragment : Fragment(R.layout.fragment_items_list) {
                 onSelected = { url -> openNewUrl(url) }
             }.show(parentFragmentManager, UrlSelectDialog::class.simpleName)
         }
+
+        initializeList()
+        initializeViewModel()
+
+        itemViewModel.fetchItems()
+    }
+
+    private fun initializeViewModel() {
+        itemViewModel.items.observe(viewLifecycleOwner, { items ->
+            itemAdapter.items = items
+        })
+    }
+
+    private fun initializeList() {
+        items_list.adapter = itemAdapter
+        items_list.layoutManager = LinearLayoutManager(requireContext())
     }
 
     private fun openNewUrl(url: String) {
@@ -29,4 +50,6 @@ class ItemsListFragment : Fragment(R.layout.fragment_items_list) {
                 putString(ItemFragment.URL_ARGUMENT, url)
             })
     }
+
+    private val itemAdapter by lazy { ItemAdapter(requireContext()) }
 }

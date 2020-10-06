@@ -1,6 +1,8 @@
 package com.darekbx.priceobserver.ui.itemslist
 
 import android.app.Dialog
+import android.content.ClipboardManager
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.InsetDrawable
@@ -42,9 +44,18 @@ class UrlSelectDialog : DialogFragment() {
             onSelected?.invoke(url_field.text.toString())
             dismiss()
         }
+        cancel_button.setOnClickListener { dismiss() }
+        paste_button.setOnClickListener { paste() }
+    }
 
-        cancel_button.setOnClickListener {
-            dismiss()
+    private fun paste() {
+        val clipboardManager = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        if (clipboardManager.hasPrimaryClip()){
+            val input = clipboardManager.primaryClip
+                ?.takeIf { it.itemCount > 0 }
+                ?.getItemAt(0)
+                ?.text
+            url_field.setText(input)
         }
     }
 }

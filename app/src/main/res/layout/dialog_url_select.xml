@@ -22,12 +22,22 @@
         app:layout_constraintTop_toBottomOf="@id/title"
         app:layout_constraintBottom_toTopOf="@id/cancel_button"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/paste_button"
         android:layout_marginStart="@dimen/padding"
-        android:layout_marginEnd="@dimen/padding"
+        android:lines="1"
         android:padding="@dimen/paddingSmall"
         android:background="#efefef"
         android:hint="@string/url_hint"
+        />
+    <ImageButton
+        android:id="@+id/paste_button"
+        android:layout_width="wrap_content"
+        android:layout_height="51dp"
+        android:src="@drawable/ic_copy"
+        app:layout_constraintTop_toTopOf="@id/url_field"
+        app:layout_constraintBottom_toBottomOf="@id/url_field"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/paddingSmall"
         />
 
     <Button

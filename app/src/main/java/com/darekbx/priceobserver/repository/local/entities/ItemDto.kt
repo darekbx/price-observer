@@ -10,6 +10,6 @@ class ItemDto(
     @ColumnInfo(name = "url") val url: String,
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "regex") val regex: String,
-    @ColumnInfo(name = "initial_price") val initialPrice: Double,
-    @ColumnInfo(name = "actual_price") val actualPrice: Double
+    @ColumnInfo(name = "initial_price") val initialPrice: String,
+    @ColumnInfo(name = "actual_price") val actualPrice: String
 )

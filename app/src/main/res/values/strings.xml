@@ -7,4 +7,11 @@
     <string name="save">Save</string>
     <string name="observer_name">Observer name</string>
     <string name="url_hint">Full URL</string>
+    <string name="initial_price_format">Initial price: %s</string>
+    <string name="no_match">Unable to match searched item, please try again.</string>
+    <string name="wrong_price_format">Wrong price format.</string>
+    <string name="dialog_ok">Ok</string>
+    <string name="validation_error">Please set value for this field</string>
+    <string name="unable_to_add_item">There was a problem during creating new item</string>
+    <string name="item_added">New item added.</string>
 </resources>
