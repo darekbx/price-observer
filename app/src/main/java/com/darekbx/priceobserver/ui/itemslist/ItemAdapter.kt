@@ -13,6 +13,7 @@ class ItemAdapter(val context: Context?)
     : RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
 
     var onLongPress: ((Item) -> Unit)? = null
+    var onPress: ((Item) -> Unit)? = null
 
     var items = listOf<Item>()
         set(value) {
@@ -22,7 +23,7 @@ class ItemAdapter(val context: Context?)
 
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): ViewHolder {
         val binding = AdapterItemBinding.inflate(inflater, parent, false)
-        return ViewHolder(binding, onLongPress)
+        return ViewHolder(binding, onLongPress, onPress)
     }
 
     override fun getItemCount(): Int {
@@ -36,7 +37,7 @@ class ItemAdapter(val context: Context?)
 
     val inflater by lazy { LayoutInflater.from(context) }
 
-    class ViewHolder(val binding: AdapterItemBinding, var onLongPress: ((Item) -> Unit)?) :
+    class ViewHolder(val binding: AdapterItemBinding, var onLongPress: ((Item) -> Unit)?, var onPress: ((Item) -> Unit)?) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Item) {
@@ -47,6 +48,10 @@ class ItemAdapter(val context: Context?)
             binding.root.setOnLongClickListener {
                 onLongPress?.invoke(item)
                 true
+            }
+
+            binding.root.setOnClickListener {
+                onPress?.invoke(item)
             }
 
             binding.actualPrice.setText("Loading...")

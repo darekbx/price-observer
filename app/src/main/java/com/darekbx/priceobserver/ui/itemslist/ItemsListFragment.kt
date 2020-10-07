@@ -1,6 +1,8 @@
 package com.darekbx.priceobserver.ui.itemslist
 
 import android.app.AlertDialog
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -62,9 +64,15 @@ class ItemsListFragment : Fragment(R.layout.fragment_items_list) {
             .show()
     }
 
+    private fun showItem(item: Item) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(item.url))
+        startActivity(intent)
+    }
+
     private val itemAdapter by lazy {
         ItemAdapter(requireContext()).apply {
             onLongPress = { deleteItem(it) }
+            onPress = { showItem(it) }
         }
     }
 }
