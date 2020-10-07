@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.darekbx.priceobserver.R
 import com.darekbx.priceobserver.databinding.AdapterItemBinding
 import com.darekbx.priceobserver.model.Item
 import com.darekbx.priceobserver.repository.remote.HtmlDownloader
@@ -12,6 +11,8 @@ import kotlinx.coroutines.*
 
 class ItemAdapter(val context: Context?)
     : RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
+
+    var onLongPress: ((Item) -> Unit)? = null
 
     var items = listOf<Item>()
         set(value) {
@@ -21,7 +22,7 @@ class ItemAdapter(val context: Context?)
 
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): ViewHolder {
         val binding = AdapterItemBinding.inflate(inflater, parent, false)
-        return ViewHolder(binding)
+        return ViewHolder(binding, onLongPress)
     }
 
     override fun getItemCount(): Int {
@@ -35,13 +36,18 @@ class ItemAdapter(val context: Context?)
 
     val inflater by lazy { LayoutInflater.from(context) }
 
-    class ViewHolder(val binding: AdapterItemBinding) :
+    class ViewHolder(val binding: AdapterItemBinding, var onLongPress: ((Item) -> Unit)?) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Item) {
 
             binding.item = item
             binding.executePendingBindings()
+
+            binding.root.setOnLongClickListener {
+                onLongPress?.invoke(item)
+                true
+            }
 
             binding.actualPrice.setText("Loading...")
 

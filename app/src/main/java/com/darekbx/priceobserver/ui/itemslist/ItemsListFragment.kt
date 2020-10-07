@@ -1,5 +1,6 @@
 package com.darekbx.priceobserver.ui.itemslist
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -7,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.darekbx.priceobserver.R
+import com.darekbx.priceobserver.model.Item
 import com.darekbx.priceobserver.ui.item.ItemFragment
 import com.darekbx.priceobserver.ui.viewmodels.ItemViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -51,5 +53,18 @@ class ItemsListFragment : Fragment(R.layout.fragment_items_list) {
             })
     }
 
-    private val itemAdapter by lazy { ItemAdapter(requireContext()) }
+    private fun deleteItem(item: Item) {
+        AlertDialog
+            .Builder(requireContext())
+            .setMessage(getString(R.string.delete_item, item.name))
+            .setPositiveButton(R.string.delete_yes, { _, _ -> itemViewModel.delete(item) })
+            .setNegativeButton(R.string.delete_no, null)
+            .show()
+    }
+
+    private val itemAdapter by lazy {
+        ItemAdapter(requireContext()).apply {
+            onLongPress = { deleteItem(it) }
+        }
+    }
 }

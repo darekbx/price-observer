@@ -14,4 +14,7 @@
     <string name="validation_error">Please set value for this field</string>
     <string name="unable_to_add_item">There was a problem during creating new item</string>
     <string name="item_added">New item added.</string>
+    <string name="delete_item">Delete \"%s\"?</string>
+    <string name="delete_yes">Yes</string>
+    <string name="delete_no">No</string>
 </resources>

@@ -17,6 +17,13 @@ class ItemViewModel  @ViewModelInject constructor(
     val items = MutableLiveData<List<Item>>()
     val itemAddResult = MutableLiveData<Boolean>()
 
+    fun delete(item: Item) {
+        viewModelScope.launch (Dispatchers.IO) {
+            itemsDao.deleteItem(item.id)
+            fetchItemsSync()
+        }
+    }
+
     fun add(name: String, url: String, regex: String, price: String) {
         viewModelScope.launch (Dispatchers.IO) {
             val itemDto = ItemDto(null, url, name, regex, price, price)
@@ -27,10 +34,14 @@ class ItemViewModel  @ViewModelInject constructor(
 
     fun fetchItems() {
         viewModelScope.launch (Dispatchers.IO) {
-            val itemsList = itemsDao.getAllItems().map { itemDto ->
-                Item.fromItemDto(itemDto)
-            }
-            items.postValue(itemsList)
+            fetchItemsSync()
         }
+    }
+
+    private fun fetchItemsSync() {
+        val itemsList = itemsDao.getAllItems().map { itemDto ->
+            Item.fromItemDto(itemDto)
+        }
+        items.postValue(itemsList)
     }
 }
